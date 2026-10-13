@@ -46,8 +46,6 @@ Below is a set of tables representing the summaries of the data.
 kable(head(unemp_recent_summary), caption = "Summary of Unemployment Rate Since 2015")
 ```
 
-
-
 Top Unemployment Rate represents the top 5 highest change in unemployment rate by increases or decreases, including when there are several data points where the rate of change is the same.
 
 ```{r}
@@ -80,7 +78,7 @@ line_region_plot
 bar_plot_region
 ```
 
-5. Unemployment Rate of Jan 2025 and Present: Rise of AI
+5.  Unemployment Rate of Jan 2025 and Present: Rise of AI
 
 This is the unemployment data from Jan 2022 to present, representing the unemployment coming out of COVID, and the rise of the AI boom. What's interesting about this data is the high unemployment rate in California, as casual inference can be made in regard to the highly concentrated tech sector.
 
@@ -89,5 +87,3 @@ Texas and New York see a similar rise in unemployment relative to the US as a wh
 ```{r}
 unemp_2025
 ```
-
-
