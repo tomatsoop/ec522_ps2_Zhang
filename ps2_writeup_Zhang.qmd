@@ -26,7 +26,9 @@ Series ID: `(UNRATE, ORUR, CAUR, TXUR, NYUR)`.
 
 Throughout this project, we will be looking at subsets of the data, starting out in 1976-01-01. Below is the first 5 entries of this data set.
 
-For this data set, the columns contains the date, unemployment rate, region, and the change in unemployment rate. Each row represents a entry in the data set for the unemployment data reported for each month of each region. The symbol `UNRATE` represents the overall data for the United States.
+For this data set, the columns contains the date, unemployment rate, region, and the change in unemployment rate.
+
+Each row represents a entry in the data set for the unemployment data reported for each month of each region. The symbol `UNRATE` represents the overall data for the United States.
 
 ```{r}
 kable(head(unemp), caption = "Unemployment Rate: Raw Data")
