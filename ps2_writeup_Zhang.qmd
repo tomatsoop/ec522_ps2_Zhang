@@ -15,7 +15,7 @@ execute:
 ```{r}
 #| echo: false
 #| message: false
-source("~/Desktop/School Stuff/EC 522/ec522_ps2_Zhang/ps2_script_Zhang.R")
+source("ps2_script_Zhang.R")
 ```
 
 ## 1. Data
@@ -44,7 +44,7 @@ kable(head(unemp), caption = "Unemployment Rate: Raw Data")
 kable(head(unemp_recent_summary), caption = "Summary of Unemployment Rate Since 2015")
 ```
 
------
+------------------------------------------------------------------------
 
 ##### Top Unemployment Rate
 
@@ -58,7 +58,7 @@ kable(unemp_top_increases_no_covid, caption = "Top Unemployment Increases Before
 kable(unemp_top_decreases_no_covid, caption = "Top Unemployment Decreases before COVID")
 ```
 
------
+------------------------------------------------------------------------
 
 ## 3. Data Visualization
 
