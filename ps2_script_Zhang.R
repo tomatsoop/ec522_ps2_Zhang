@@ -13,6 +13,8 @@ library(knitr)
 # write_rds(unemp_raw, "data/unemp_raw.rds")
 
 unemp_raw = read_rds("data/unemp_raw.rds")
+
+
 # 4.1: Renaming entries
 
 unemp = unemp_raw |>
@@ -26,6 +28,7 @@ unemp = unemp_raw |>
         symbol== "NYUR" ~ "New York"
       )
     )
+
 
 # 4.2 Wrangle the Data
 # Filling in missing October data for 2025 with data in the previous month 
@@ -64,7 +67,6 @@ unemp_summary = unemp |>
     max_rate = max(unemployment_rate, na.rm = TRUE)
   )
 
-
 # Group for recent summary
 unemp_recent_summary = unemp_recent |> 
   group_by(region) |> 
@@ -74,54 +76,59 @@ unemp_recent_summary = unemp_recent |>
     max_rate = max(unemployment_rate, na.rm = TRUE)
   )
 
+
 # 4.3 Find the Extremes
 # Largest Month to Month Increase within each region
 unemp_top_increases = unemp |> 
   slice_max(order_by = unemployment_rate_change, n = 5, with_ties = TRUE)
-# view(unemp_top_increases)
 
 # Smallest month to month increase within each region
 unemp_top_decreases = unemp |> 
   slice_min(order_by = unemployment_rate_change, n = 5, with_ties = TRUE)
 
+
 # 4.4. Find the Extremes Excluding 2020 
 
-# Filter data set that excludes 2020 dataset (Use pipe for OR)
+# Filter data set that excludes 2020 data set (Use pipe for OR)
 # use the filtered no COVID data set and filter for the max by ordering by 
 # the unemployment rate change and take the top 5
 
 unemp_recent_no_covid = unemp |> 
   filter(date < "2020-01-01" | date >= "2021-01-01")
-# head(unemp_recent_no_covid)
 
 unemp_top_increases_no_covid = unemp_recent_no_covid |> 
   slice_max(order_by = unemployment_rate_change, n = 5, with_ties = TRUE)
-# View(unemp_top_increases_no_covid)
 
 unemp_top_decreases_no_covid = unemp_recent_no_covid |> 
   tidyr::drop_na(unemployment_rate_change) |>
   slice_min(order_by = unemployment_rate_change, n = 5, with_ties = TRUE)
-# view(unemp_top_decreases_no_covid)
 
-# Part 5 – Visualize the Data with 
+
+# Part 5 – Visualize the Data with ggplot2
 
 # 5.1 Line Plot
+
+# Line plot Overlaid
 line_plot= ggplot(unemp, aes(x = date, y = unemployment_rate, color = region)) +
   geom_line()+       # or geom_col(), geom_point(), etc.
   labs(title = "Unemployment Rate by Region", x = "Date", y = "Unemployment Rate") +
   theme_minimal()
 
+# Line plot by region
 line_region_plot = ggplot(unemp, aes(x = date, y = unemployment_rate, color = region)) +
   geom_line() + facet_wrap(~ region)+ 
   labs(title = "Unemployment Rate by Region", 
        x = "Date", y = "Unemployment Rate") + theme_minimal() 
 
+
 # 5.3. Produce a Bar Chart
+# Sorted Bar Chart
 bar_plot_region = ggplot(unemp_summary, aes(x = fct_reorder(region, mean_rate), 
            y = mean_rate, color = region)) +
            geom_col() + 
            labs(title = "Average Unemployment Rate by Region", 
                 x = "Region", y = "Unemployment Rate")
+
 
 # 5.4 Unemployment Rate of Jan 2025 and Present: Rise of AI
 
