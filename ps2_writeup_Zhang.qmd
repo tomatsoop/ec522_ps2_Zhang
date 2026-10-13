@@ -1,0 +1,93 @@
+---
+title: "Problem Set 2"
+author: "Sabrina Zhang"
+date: today
+format:
+  html:
+    toc: true
+    embed-resources: true
+execute:
+  echo: false
+---
+
+<!-- ## **GitHub repo:** <https://github.com/tomatsoop/ec522_ps2_Zhang> -->
+
+```{r}
+#| echo: false
+#| message: false
+source("~/Desktop/School Stuff/EC 522/ec522_ps2_Zhang/ps2_script_Zhang.R")
+
+
+```
+
+## 1. Data
+
+The data set for this project is pulling from is the Federal Reserve Economic Database (FRED). This set will contain the Unemployment Rate in the US (overall), Oregon, California, Texas, and New York.
+
+Series ID: `(UNRATE, ORUR, CAUR, TXUR, NYUR)`.
+
+Throughout this project, we will be looking at subsets of the data, starting out in 1976-01-01. Below is the first 5 entries of this data set.
+
+For this data set, the columns contains the date, unemployment rate, region, and the change in unemployment rate. Each row represents a entry in the data set for the unemployment data reported for each month of each region. The symbol `UNRATE` represents the overall data for the United States.
+
+```{r}
+kable(head(unemp), caption= "Unemployment Rate: Raw Data")
+```
+
+## 2. Wrangling
+
+Below is a set of tables representing the summaries of the data.
+
+```{r}
+ kable(head(unemp_summary), caption= "Unemployment Rate Summary")
+```
+
+```{r}
+kable(head(unemp_recent_summary), caption = "Summary of Unemployment Rate Since 2015")
+```
+
+
+
+Top Unemployment Rate represents the top 5 highest change in unemployment rate by increases or decreases, including when there are several data points where the rate of change is the same.
+
+```{r}
+kable(unemp_top_increases_no_covid, caption = "Top Unemployment Increases Before COVID")
+```
+
+```{r}
+kable(unemp_top_decreases_no_covid, caption = "Top Unemployment Decreases before COVID")
+```
+
+## 3. Visualization
+
+Below is a set of data visualizations:
+
+1.  Unemployment Rate overlay by region since 1978
+
+```{r}
+line_plot
+```
+
+2.  Unemployment Rate by region
+
+```{r}
+line_region_plot
+```
+
+3.  Average Unemployment Rate ranked from lowest to highest by region
+
+```{r}
+bar_plot_region
+```
+
+5. Unemployment Rate of Jan 2025 and Present: Rise of AI
+
+This is the unemployment data from Jan 2022 to present, representing the unemployment coming out of COVID, and the rise of the AI boom. What's interesting about this data is the high unemployment rate in California, as casual inference can be made in regard to the highly concentrated tech sector.
+
+Texas and New York see a similar rise in unemployment relative to the US as a whole.
+
+```{r}
+unemp_2025
+```
+
+
