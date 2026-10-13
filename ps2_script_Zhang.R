@@ -10,7 +10,6 @@ library(knitr)
 # 
 # # Only save if the download has the expected columns
 # stopifnot(all(c("symbol", "date", "price") %in% names(unemp_raw)))
-# 
 # write_rds(unemp_raw, "data/unemp_raw.rds")
 
 unemp_raw = read_rds("data/unemp_raw.rds")
@@ -27,6 +26,7 @@ unemp = unemp_raw |>
         symbol== "NYUR" ~ "New York"
       )
     )
+
 # 4.2 Wrangle the Data
 # Filling in missing October data for 2025 with data in the previous month 
 # from each region
@@ -42,7 +42,8 @@ unemp = unemp |>
 
 # Create column that lags the data to find the unemployment rate change 
 # Arrange data by region and date, group by region, then add a column called 
-# unemployment rate change by taking the difference of unemployment rate - lagged value of unemployment rate
+# unemployment rate change by taking the difference of:
+# unemployment rate - lagged value of unemployment rate
 
 unemp = unemp |> 
   arrange(region, date) |>
@@ -53,7 +54,6 @@ unemp = unemp |>
 # Use filter to create tibble of observation Jan 2015 forward
 unemp_recent = unemp |> 
   filter(date >= '2015-01-01')
-# head(unemp_recent)
 
 # Group by summary of each region
 unemp_summary = unemp |> 
@@ -63,7 +63,7 @@ unemp_summary = unemp |>
     min_rate = min(unemployment_rate, na.rm = TRUE),
     max_rate = max(unemployment_rate, na.rm = TRUE)
   )
- # head(unemp_summary)
+
 
 # Group for recent summary
 unemp_recent_summary = unemp_recent |> 
@@ -83,7 +83,6 @@ unemp_top_increases = unemp |>
 # Smallest month to month increase within each region
 unemp_top_decreases = unemp |> 
   slice_min(order_by = unemployment_rate_change, n = 5, with_ties = TRUE)
-# view(unemp_top_decreases)
 
 # 4.4. Find the Extremes Excluding 2020 
 
@@ -114,16 +113,18 @@ line_plot= ggplot(unemp, aes(x = date, y = unemployment_rate, color = region)) +
 
 line_region_plot = ggplot(unemp, aes(x = date, y = unemployment_rate, color = region)) +
   geom_line() + facet_wrap(~ region)+ 
-  labs(title = "Unemployment Rate by Region", x = "Date", y = "Unemployment Rate") +
-  theme_minimal() 
+  labs(title = "Unemployment Rate by Region", 
+       x = "Date", y = "Unemployment Rate") + theme_minimal() 
 
 # 5.3. Produce a Bar Chart
 bar_plot_region = ggplot(unemp_summary, aes(x = fct_reorder(region, mean_rate), 
            y = mean_rate, color = region)) +
            geom_col() + 
-           labs(title = "Average Unemployment Rate by Region", x = "Region", y = "Unemployment Rate")
+           labs(title = "Average Unemployment Rate by Region", 
+                x = "Region", y = "Unemployment Rate")
 
 # 5.4 Unemployment Rate of Jan 2025 and Present: Rise of AI
+
 # This is the unemployment data for Jan 2022 to present, representing the unemployment coming out of COVID, and the rise
 # of the AI boom. What's interesting about this data is the high unemployment rate in California, as casual inference
 # can be made as to why. Texas and New York see a similar rise in unemployment relative to the US as a whole.
@@ -132,9 +133,8 @@ unemp_recent_2025 = unemp |>
   filter(date >= '2022-01-01')
 head(unemp_recent)
 unemp_2025 = ggplot(unemp_recent_2025, aes(x = date, y = unemployment_rate, color = region)) +
-  geom_line()+       # or geom_col(), geom_point(), etc.
-  labs(title = "Unemployment Rate by Region", x = "Date", y = "Unemployment Rate") +
-  theme_minimal()
+  geom_line()+ labs(title = "Unemployment Rate by Region", 
+                    x = "Date", y = "Unemployment Rate") + theme_minimal()
 
 
 
