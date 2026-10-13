@@ -16,8 +16,6 @@ execute:
 #| echo: false
 #| message: false
 source("~/Desktop/School Stuff/EC 522/ec522_ps2_Zhang/ps2_script_Zhang.R")
-
-
 ```
 
 ## 1. Data
@@ -31,22 +29,26 @@ Throughout this project, we will be looking at subsets of the data, starting out
 For this data set, the columns contains the date, unemployment rate, region, and the change in unemployment rate. Each row represents a entry in the data set for the unemployment data reported for each month of each region. The symbol `UNRATE` represents the overall data for the United States.
 
 ```{r}
-kable(head(unemp), caption= "Unemployment Rate: Raw Data")
+kable(head(unemp), caption = "Unemployment Rate: Raw Data")
 ```
 
 ## 2. Wrangling
 
-Below is a set of tables representing the summaries of the data.
+##### Data Set Summary
 
 ```{r}
- kable(head(unemp_summary), caption= "Unemployment Rate Summary")
+ kable(head(unemp_summary), caption = "Unemployment Rate Summary")
 ```
 
 ```{r}
 kable(head(unemp_recent_summary), caption = "Summary of Unemployment Rate Since 2015")
 ```
 
-Top Unemployment Rate represents the top 5 highest change in unemployment rate by increases or decreases, including when there are several data points where the rate of change is the same.
+-----
+
+##### Top Unemployment Rate
+
+Top 5 highest change in unemployment rate by increases or decreases, including when there are several data points where more than one unemployment rate change is the same.
 
 ```{r}
 kable(unemp_top_increases_no_covid, caption = "Top Unemployment Increases Before COVID")
@@ -56,9 +58,9 @@ kable(unemp_top_increases_no_covid, caption = "Top Unemployment Increases Before
 kable(unemp_top_decreases_no_covid, caption = "Top Unemployment Decreases before COVID")
 ```
 
-## 3. Visualization
+-----
 
-Below is a set of data visualizations:
+## 3. Data Visualization
 
 1.  Unemployment Rate overlay by region since 1978
 
