@@ -109,26 +109,25 @@ unemp_top_decreases_no_covid = unemp_recent_no_covid |>
 # 5.1 Line Plot
 
 # Line plot Overlaid
-line_plot= ggplot(unemp, aes(x = date, y = unemployment_rate, color = region)) +
+line_plot = ggplot(unemp, aes(x = date, y = unemployment_rate, color = region)) +
   geom_line()+       # or geom_col(), geom_point(), etc.
   labs(title = "Unemployment Rate by Region", x = "Date", y = "Unemployment Rate") +
   theme_minimal()
-
+line_plot
 # Line plot by region
 line_region_plot = ggplot(unemp, aes(x = date, y = unemployment_rate, color = region)) +
   geom_line() + facet_wrap(~ region)+ 
   labs(title = "Unemployment Rate by Region", 
        x = "Date", y = "Unemployment Rate") + theme_minimal() 
 
-
 # 5.3. Produce a Bar Chart
 # Sorted Bar Chart
 bar_plot_region = ggplot(unemp_summary, aes(x = fct_reorder(region, mean_rate), 
-           y = mean_rate, color = region)) +
+           y = mean_rate, fill = region)) +
            geom_col() + 
            labs(title = "Average Unemployment Rate by Region", 
                 x = "Region", y = "Unemployment Rate")
-
+bar_plot_region
 
 # 5.4 Unemployment Rate of Jan 2025 and Present: Rise of AI
 
@@ -143,8 +142,8 @@ unemp_2025 = ggplot(unemp_recent_2025, aes(x = date, y = unemployment_rate, colo
   geom_line()+ labs(title = "Unemployment Rate by Region", 
                     x = "Date", y = "Unemployment Rate") + theme_minimal()
 
-
-
+unemp_recent_2025
+To make a geom_col a solid color in ggplot2, use the fill argument inside geom_col() but outside of aes().
 
 
 
